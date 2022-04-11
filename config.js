@@ -40,6 +40,8 @@ self.session = {
   cookie: { maxAge: 2 * 60 * 60 * 1000 },
 };
 
+self.store = getConfig(env.STORE, "redis");
+
 self.endpoints = {
   backend: {
     url:

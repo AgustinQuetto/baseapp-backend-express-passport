@@ -20,6 +20,8 @@ mongoose.connect(config.mongodbConnectionString, {
 const FileController = require("./controllers/FileController");
 const FileControllerInstance = new FileController();
 
+const RedisService = require("./services/RedisService");
+
 const passport = require("passport");
 const PassportController = require("./controllers/PassportController");
 
@@ -40,11 +42,16 @@ const AuthControllerInstance = new AuthController(
   FileControllerInstance
 );
 
-const MongoStore = require("connect-mongo");
-config.session.store = MongoStore.create({
-  mongoUrl: config.mongodbConnectionString,
-  secret: config.session.secret,
-});
+if (config.session === "redis") {
+  const RedisStore = require("connect-redis")(session);
+  config.session.store = new RedisStore({ client: RedisService.client });
+} else if (config.session === "mongo") {
+  const MongoStore = require("connect-mongo");
+  config.session.store = MongoStore.create({
+    mongoUrl: config.mongodbConnectionString,
+    secret: config.session.secret,
+  });
+}
 
 module.exports = (server) => {
   server.use(cookieParser());

@@ -7,21 +7,21 @@ class AuthController {
     this.profileService = profileService;
     this.fileController = fileController;
     this.messages = {
-      invalid: { message: "Correo electrónico o contraseña incorrecta." },
+      invalid: { message: "Wrong email or password." },
       alreadyExists: {
         message: "El correo electrónico se encuentra en uso.",
       },
       error: {
-        message: "Hubo un error creando su cuenta. Intente más tarde.",
+        message: "Email is in use.",
       },
       confirm_password: {
-        message: "Las contraseñas no coinciden.",
+        message: "Passwords do not match.",
       },
       profile_creation_error: {
-        message: "Hubo un error creando su perfil.",
+        message: "There was an error creating your profile.",
       },
       github_type_error: {
-        message: "La cuenta de GitHub debe ser personal.",
+        message: "GitHub account must be personal.",
       },
     };
   }
